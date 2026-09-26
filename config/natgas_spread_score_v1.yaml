@@ -1,0 +1,62 @@
+name: natgas_spread_score_v1
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG1-NG2
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+  backtest_price_col: spread_settle
+  sizing_price_col: ng1_settle
+  sizing_vol_col: spread_rv20
+  sizing_vol_kind: price
+  cost_turnover_multiplier: 2.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  weather_baseline_years: 10
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.90
+
+signals:
+  model: spread_score_v1
+  entry_score: 1.00
+  long_entry_score: 1.00
+  short_entry_score: 1.50
+  allow_longs: true
+  allow_shorts: true
+  exit_score: 0.25
+  max_holding_days: 23
+  storage_weight: 0.20
+  storage_change_weight: 0.35
+  storage_percentile_weight: 0.20
+  storage_change_scale: 50.0
+  slope_weight: 0.90
+  weather_weight: 0.75
+  weather_7d_weight: 0.55
+  season_weight: 0.15
+  slope_scale: 0.05
+  momentum_window: 20
+  long_spread_momentum_floor: 0.0
+  short_spread_momentum_ceiling: -0.02
+  short_min_contango_slope: 0.03
+  short_min_storage_z: 0.75
+  max_component_abs: 2.0
+
+sizing:
+  initial_equity: 1000000.0
+  target_vol: 0.08
+  max_contracts: 10
+  max_notional_leverage: 1.0
+  min_realized_vol: 0.20
+
+costs:
+  commission_per_contract: 2.50
+  slippage_ticks: 1.0

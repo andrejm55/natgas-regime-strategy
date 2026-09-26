@@ -1,0 +1,79 @@
+name: natgas_event_outright_v1_2x_regime_filtered_v2
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+  backtest_price_col: ng1_settle
+  cost_turnover_multiplier: 1.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  weather_baseline_years: 10
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.975
+
+signals:
+  model: event_outright_v1
+  allow_longs: true
+  allow_shorts: true
+  max_holding_days: 0
+  exit_score: 0.25
+  event_entry_score: 1.5
+  long_event_entry_score: 2.75
+  short_event_entry_score: 2.5
+  reversion_entry_score: 1.25
+  long_reversion_entry_score: 1.75
+  short_reversion_entry_score: 1.0
+  weather_anomaly_threshold: 1.0
+  weather_change_threshold: 1.0
+  storage_surprise_threshold: 75.0
+  curve_confirm_threshold: 0.025
+  curve_lookback_days: 3
+  weather_weight: 0.75
+  weather_change_weight: 1.0
+  storage_surprise_weight: 0.6
+  curve_weight: 0.75
+  storage_entry_mode: score
+  event_direction: fade
+  reversion_weather_threshold: 1.5
+  reversion_change_threshold: 0.75
+  profit_protection_trigger: 0.15
+  profit_giveback: 0.05
+  allow_storage_only_events: true
+  allow_combined_storage_longs: true
+  allow_combined_storage_shorts: true
+  weak_long_min_contracts: 1
+  weak_long_max_contracts: 1
+  strong_long_min_contracts: 3
+  strong_long_max_contracts: 5
+  weak_short_min_contracts: 0
+  weak_short_max_contracts: 0
+  strong_short_min_contracts: 0
+  strong_short_max_contracts: 0
+  max_component_abs: 2.0
+  allow_contango_weather_events: false
+  summer_max_entry_rv20: 0.75
+
+sizing:
+  initial_equity: 1000000.0
+  position_scale: 7.0
+  target_vol: 0.06
+  max_contracts: 5
+  max_long_contracts: 5
+  max_short_contracts: 5
+  max_notional_leverage: 0.75
+  min_realized_vol: 0.2
+
+costs:
+  commission_per_contract: 2.5
+  slippage_ticks: 1.0

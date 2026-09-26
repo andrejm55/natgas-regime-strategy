@@ -1,0 +1,51 @@
+name: natgas_regime_score_v1
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  weather_baseline_years: 10
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.90
+
+signals:
+  model: regime_score_v1
+  entry_score: 1.25
+  exit_score: 0.35
+  max_holding_days: 23
+  slope_scale: 0.05
+  storage_weight: 0.85
+  slope_weight: 0.75
+  weather_weight: 0.35
+  weather_7d_weight: 0.25
+  season_weight: 0.15
+  trend_weight: 0.75
+  momentum_window: 20
+  momentum_scale: 0.10
+  short_momentum_ceiling: 0.0
+  long_allowed_seasons: [winter, summer]
+  short_allowed_seasons: [shoulder]
+  max_component_abs: 2.0
+
+sizing:
+  initial_equity: 1000000.0
+  target_vol: 0.10
+  max_contracts: 10
+  max_notional_leverage: 1.0
+  min_realized_vol: 0.20
+
+costs:
+  commission_per_contract: 2.50
+  slippage_ticks: 1.0

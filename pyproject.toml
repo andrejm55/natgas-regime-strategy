@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "natgas-regime"
+version = "0.1.0"
+description = "Python-first Henry Hub natural gas regime strategy research app"
+requires-python = ">=3.11"
+dependencies = [
+  "duckdb>=1.1.0",
+  "databento>=0.86.0",
+  "ib-async>=2.0.0",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "plotly>=5.24",
+  "pyarrow>=16.0",
+  "pydantic>=2.8",
+  "python-dotenv>=1.0",
+  "pyyaml>=6.0",
+  "requests>=2.32",
+  "streamlit>=1.37",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.6",
+]
+
+[tool.setuptools.packages.find]
+include = ["natgas_regime*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

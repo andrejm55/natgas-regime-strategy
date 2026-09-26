@@ -1,0 +1,39 @@
+name: natgas_outright
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.80
+
+signals:
+  z_tight: 1.0
+  z_loose: 1.0
+  long_exit_storage_z: -0.25
+  short_exit_storage_z: 0.25
+  max_holding_days: 20
+
+sizing:
+  initial_equity: 1000000.0
+  target_vol: 0.10
+  max_contracts: 10
+  max_notional_leverage: 1.0
+  min_realized_vol: 0.20
+
+costs:
+  commission_per_contract: 2.50
+  slippage_ticks: 1.0
+

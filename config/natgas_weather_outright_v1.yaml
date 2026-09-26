@@ -1,0 +1,60 @@
+name: natgas_weather_outright_v1
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+  backtest_price_col: ng1_settle
+  cost_turnover_multiplier: 1.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  weather_baseline_years: 10
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.90
+
+signals:
+  model: weather_outright_v1
+  entry_score: 1.25
+  exit_score: 0.35
+  max_holding_days: 15
+  weather_weight: 1.00
+  weather_7d_weight: 0.75
+  trend_weight: 0.90
+  storage_weight: 0.10
+  storage_change_weight: 0.15
+  storage_percentile_weight: 0.10
+  storage_change_scale: 50.0
+  slope_weight: 0.10
+  season_weight: 0.10
+  momentum_window: 20
+  confirmation_momentum_window: 60
+  momentum_scale: 0.10
+  min_abs_price_vs_sma: 0.015
+  allow_longs: true
+  allow_shorts: true
+  long_momentum_floor: 0.02
+  short_momentum_ceiling: -0.02
+  loose_storage_avoid_long_z: 0.75
+  contango_avoid_long_slope: 0.03
+  max_component_abs: 2.0
+
+sizing:
+  initial_equity: 1000000.0
+  target_vol: 0.10
+  max_contracts: 10
+  max_notional_leverage: 1.0
+  min_realized_vol: 0.20
+
+costs:
+  commission_per_contract: 2.50
+  slippage_ticks: 1.0

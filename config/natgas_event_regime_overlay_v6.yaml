@@ -1,0 +1,63 @@
+name: natgas_event_regime_overlay_v6
+data_config: config/data.yaml
+
+instrument:
+  symbol: NG
+  exchange: NYMEX
+  currency: USD
+  multiplier: 10000
+  tick_size: 0.001
+  tick_value: 10.0
+  backtest_price_col: ng1_settle
+  cost_turnover_multiplier: 1.0
+
+roll:
+  method: expiration_days_before
+  business_days_before_expiration: 2
+
+features:
+  storage_baseline_years: 5
+  weather_baseline_years: 10
+  realized_vol_window: 20
+  riskoff_percentile_window: 252
+  riskoff_percentile: 0.975
+
+signals:
+  model: event_regime_overlay_v1
+  event_config: config/natgas_event_outright_v1_2x_regime_filtered_v4.yaml
+  overlay_config: config/natgas_regime_score_v1.yaml
+  overlay_mode: flat_only
+  overlay_storage_z_max: 0.5
+  overlay_scale: 1.0
+  max_abs_contracts: 35
+  overlay_allow_high_storage_winter_backwardation_longs: true
+  overlay_high_storage_winter_backwardation_months: [1]
+  overlay_require_warm_features: true
+  overlay_short_storage_z_max: -0.1
+  auxiliary_overlays:
+    - name: backwardation_short
+      contracts: -2
+      mode: additive
+      curve_regimes: [backwardation]
+    - name: winter_backwardation_short
+      contracts: -8
+      mode: additive
+      seasons: [winter]
+      curve_regimes: [backwardation]
+    - name: summer_negative_momentum_reversion
+      contracts: 4
+      mode: additive
+      seasons: [summer]
+      momentum_20d_max: -0.02
+      require_warm_features: true
+
+sizing:
+  initial_equity: 1000000.0
+  target_vol: 0.06
+  max_contracts: 35
+  max_notional_leverage: 5.25
+  min_realized_vol: 0.2
+
+costs:
+  commission_per_contract: 2.5
+  slippage_ticks: 1.0

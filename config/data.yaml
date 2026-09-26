@@ -1,0 +1,99 @@
+database_path: data/04_processed/natgas.duckdb
+
+# Optional local CSV inputs
+csv:
+  futures_contracts: data/03_interim/ng_continuous_daily.csv
+  contract_expirations: data/05_contract_metadata/ng_contract_expirations.csv
+  storage: data/02_raw_fundamentals/eia_weekly_storage.csv
+  weather: data/02_raw_weather/noaa_cdo_daily.csv
+
+ibkr:
+  host_env: IBKR_HOST
+  port_env: IBKR_PORT
+  client_id_env: IBKR_CLIENT_ID
+  exchange: NYMEX
+  symbol: NG
+  currency: USD
+  bar_size: 1 day
+  what_to_show: TRADES
+  use_rth: false
+  duration: 2 Y
+  request_pause_seconds: 1.0
+  raw_output_dir: data/01_raw_ibkr
+  metadata_output_dir: data/05_contract_metadata
+  consolidated_bars_file: data/01_raw_ibkr/ng_contract_daily_bars.csv
+  continuous_file: data/03_interim/ng_continuous_daily.csv
+
+databento:
+  api_key_env: DATABENTO_API_KEY
+  dataset: GLBX.MDP3
+  root_symbol: NG
+  start_month: "2014-12"
+  end_month: "2025-09"
+  start_date: "2014-01-01"
+  end_date: "2025-09-24"
+  symbol_year_digits: 1
+  months_before_contract: 6
+  months_after_contract: 1
+  raw_output_dir: data/01_raw_databento
+  bars_file: data/01_raw_databento/ng_databento_ohlcv_1d.csv
+  definitions_file: data/05_contract_metadata/ng_databento_definitions.csv
+
+eia:
+  api_key_env: EIA_API_KEY
+  # Keep this route configurable. The parser expects EIA v2-style JSON with response.data.
+  route: https://api.eia.gov/v2/natural-gas/stor/wkly/data/
+  frequency: weekly
+  data_field: value
+  series_id: NW2_EPG0_SWO_R48_BCF
+  # EIA's period is the week-ending Friday. The report is normally released the
+  # following Thursday, so this conservative default avoids using storage early.
+  release_lag_days: 6
+  raw_output_dir: data/02_raw_fundamentals
+
+weather:
+  provider: noaa_cdo
+  token_env: NOAA_CDO_TOKEN
+  start_date: "2015-01-01"
+  end_date: null
+  timezone: America/Chicago
+  base_temperature_f: 65.0
+  observation_lag_days: 1
+  raw_output_dir: data/02_raw_weather
+  regions:
+    - name: south_central
+      station_id: GHCND:USW00012960
+      station_name: HOUSTON INTERCONTINENTAL AIRPORT, TX US
+      latitude: 30.22
+      longitude: -93.38
+      weight: 0.40
+    - name: east
+      station_id: GHCND:USW00094823
+      station_name: PITTSBURGH INTERNATIONAL AIRPORT, PA US
+      latitude: 40.44
+      longitude: -79.99
+      weight: 0.25
+    - name: midwest
+      station_id: GHCND:USW00094846
+      station_name: CHICAGO OHARE INTERNATIONAL AIRPORT, IL US
+      latitude: 41.88
+      longitude: -87.63
+      weight: 0.25
+    - name: mountain
+      station_id: GHCND:USW00003017
+      station_name: DENVER INTERNATIONAL AIRPORT, CO US
+      latitude: 39.74
+      longitude: -104.99
+      weight: 0.05
+    - name: pacific
+      station_id: GHCND:USW00023174
+      station_name: LOS ANGELES INTERNATIONAL AIRPORT, CA US
+      latitude: 34.05
+      longitude: -118.24
+      weight: 0.05
+
+outputs:
+  backtests: outputs/01_backtests
+  reports: outputs/02_reports
+  charts: outputs/03_charts
+  logs: outputs/04_logs
