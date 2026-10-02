@@ -1,10 +1,10 @@
 # IBKR Gateway Setup
 
-IBKR's TWS/Gateway API is not normally configured with an API key. The API is a local TCP socket connection to a running IB Gateway or Trader Workstation session.
+IBKR's TWS/Gateway API is not normally configured with an API key. The API is a local TCP socket connection to a running IB Gateway or Workstation session.
 
 ## What You Need To Enter
 
-Put these values in `.env`:
+Put these in `.env`:
 
 ```bash
 IBKR_HOST=127.0.0.1
@@ -56,4 +56,4 @@ IBKR_PORT=4002
 IBKR_CLIENT_ID=23
 ```
 
-This is a paper Gateway-style connection unless you change the port.
+Above is a paper Gateway style connection (unless you change the port).

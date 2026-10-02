@@ -1,6 +1,6 @@
 # Data And Output Layout
 
-The project separates source code, local data, and generated research outputs. Most data and output folders are ignored by git because they can contain licensed futures bars or derived price series.
+The project separates source code, local data, and generated research outputs. Most data and output folders are ignored by git because they contain licensed futures bars or derived price series.
 
 ## Directory Map
 
@@ -11,7 +11,7 @@ data/
   02_raw_fundamentals/      Public EIA storage downloads.
   02_raw_weather/           Public NOAA/Open-Meteo weather downloads.
   03_interim/               Derived continuous futures datasets. Not redistributed if built from licensed bars.
-  04_processed/             Local DuckDB database. Not redistributed if it contains licensed bars.
+  04_processed/             Local DuckDB database. Not redistributed.
   05_contract_metadata/     Contract metadata and roll calendars.
 
 outputs/
@@ -67,4 +67,3 @@ Ignored:
 - Continuous price series derived from licensed bars.
 - DuckDB databases.
 - Generated backtests, reports, charts, and logs.
-- Experimental config scratch space under `config/_candidates/`.

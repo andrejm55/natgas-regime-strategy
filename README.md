@@ -18,10 +18,9 @@ The final exposure scale is applied after event, regime, and auxiliary overlays 
 
 The repository is structured so code, configs, documentation, contract metadata, weather data, storage data, and generated methodology can be public.
 
-Do not commit or redistribute:
+Do not commit or redistribute the following in your own projects:
 
-- IBKR historical futures bars.
-- Databento historical futures bars.
+- Historical futures bars.
 - Local DuckDB databases built from licensed futures bars.
 - Generated backtest output files that embed licensed futures prices.
 
@@ -29,7 +28,7 @@ Publicly reproducible inputs:
 
 - EIA weekly Lower 48 working gas in storage.
 - NOAA CDO observed station temperatures.
-- Open-Meteo weather data, if used.
+- Open-Meteo weather data (only if used).
 - Contract metadata reconstructed from public NG expiration rules or from each user's own vendor account.
 
 See [docs/reproducibility.md](docs/reproducibility.md) for exact dates, contracts, fields, symbols, and rebuild steps.
@@ -99,7 +98,7 @@ python scripts/run_backtest.py --config config/natgas_event_regime_overlay_v6_2x
 python scripts/run_backtest.py --config config/natgas_event_regime_overlay_v6_3x.yaml --save
 ```
 
-The output directory is ignored by git because saved backtests can contain derived licensed price data.
+The output directory is ignored by git because saved backtests contain derived licensed price data.
 
 ## Dashboard
 

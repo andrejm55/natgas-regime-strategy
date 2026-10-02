@@ -59,7 +59,7 @@ python scripts/download_databento_ng.py --estimate-only
 python scripts/download_databento_ng.py
 ```
 
-Normalized fields:
+Normalised fields:
 
 ```text
 date
@@ -81,7 +81,7 @@ Date range: 2014-06-01 to 2025-05-28
 Contract months present: 201412 through 202506
 ```
 
-The config requests through 2025-09, but a vendor response can only contribute rows where bars exist for the requested schema/symbol/date combination. Check the local row count and contract-month coverage after each rebuild.
+The config requests through 2025-09, but a vendor response can only contribute rows where bars exist for the requested schema/symbol/date combination. Check the local row count and contract month coverage after each rebuild.
 
 ### Later IBKR Section
 
@@ -111,7 +111,7 @@ python scripts/check_ibkr_connection.py
 python scripts/download_ibkr_ng.py --start-month 202510 --end-month 202712
 ```
 
-Normalized fields:
+Normalised fields:
 
 ```text
 date
@@ -127,7 +127,7 @@ average
 bar_count
 ```
 
-Current local consolidated contract-bar file:
+Current local consolidated contract bar file:
 
 ```text
 Path: data/01_raw_ibkr/ng_contract_daily_bars.csv
@@ -136,7 +136,7 @@ Date range: 2014-06-01 to 2026-08-19
 Contract months present: 201412 through 202712
 ```
 
-Despite the directory name, the consolidated file can contain both Databento-sourced historical bars and IBKR-sourced later bars. It is still treated as licensed vendor price data and should not be redistributed.
+Despite the directory name, the consolidated file can contain both Databento-sourced historical bars and IBKR-sourced later bars. Any licensed vendor data should not be redistributed.
 
 ## Contract Metadata And Roll Calendar
 
@@ -327,7 +327,7 @@ Common cost assumptions:
 ```text
 Commission: $2.50 per contract
 Slippage: 1 tick per turnover contract
-Tick value: $10
+Tick value: $12.5
 ```
 
 Run:
@@ -337,5 +337,3 @@ python scripts/run_backtest.py --config config/natgas_event_regime_overlay_v6.ya
 python scripts/run_backtest.py --config config/natgas_event_regime_overlay_v6_2x.yaml --save
 python scripts/run_backtest.py --config config/natgas_event_regime_overlay_v6_3x.yaml --save
 ```
-
-Saved outputs are local research artifacts and are ignored by git.

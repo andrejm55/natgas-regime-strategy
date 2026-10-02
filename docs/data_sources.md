@@ -1,6 +1,6 @@
 # Data Sources
 
-This project combines licensed futures prices with public fundamental and weather data. The code and public-data specifications can be shared. Licensed vendor price files should be rebuilt by each user under their own data agreement.
+This project combines licensed futures prices with public fundamental and weather data. The code and public-data specifications can be shared. Licensed vendor price files should be rebuilt by each user under their own data arrangement.
 
 ## Shareability
 
@@ -35,9 +35,9 @@ months_before_contract: 6
 months_after_contract: 1
 ```
 
-The downloader requests each contract month from six months before the delivery month through one month after the delivery month. The raw-symbol form uses one year digit because that is how the current Databento request path was configured. The normalized output uses two-digit canonical symbols, for example `NGZ14`.
+The downloader requests each contract month from six months before the delivery month through one month after the delivery month. The raw-symbol form uses one year digit because that is how the current Databento request path was configured. The normalised output uses two-digit symbols, for example `NGZ14`.
 
-Normalized output fields:
+Normalised output fields:
 
 ```text
 date
@@ -65,7 +65,7 @@ python scripts/download_databento_ng.py
 
 ### IBKR
 
-IBKR is used through the local Gateway/TWS socket API. No project API key is stored. The user logs into Gateway/TWS and supplies socket settings through environment variables.
+IBKR is used through the local IBKR socket API. No API key stored. The user logs into Gateway/TWS and supplies socket settings through environment variables.
 
 Configured futures request:
 
@@ -86,7 +86,7 @@ Contract months: 202510 through 202712
 Files: data/01_raw_ibkr/NG_YYYYMM_daily.csv
 ```
 
-Normalized output fields:
+Normalised output fields:
 
 ```text
 date
